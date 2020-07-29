@@ -21,6 +21,9 @@ def home():
 @app.route('/patients/search')
 def search_patients():
     return render_template('/patients/search.html',title="Search Patients", patients=patients)
+@app.route('/patients/test')
+def test_patients():
+    return render_template('/patients/symptom_test.html',title="Symptoms Test")
 
 if __name__=='__main__':
     app.run(debug=True)
