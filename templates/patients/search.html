@@ -1,0 +1,151 @@
+{%extends "layout.html" %}
+{%block css%}
+<!-- Custom styles for this page -->
+<link href="{{ url_for('static',filename='vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+<link href="{{ url_for('static',filename='vendor/datatables/select.dataTables.min.css') }}" rel="stylesheet">
+{%endblock css%}
+
+{%block content%}
+<!-- DataTales Patients -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Search Patients</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>DOB</th>
+                <th>Address</th>
+                <th>Phone Number</th>
+                <th>Last Visited</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for patient in patients %}
+            <tr>
+                <td></td>
+                <td>{{patient.name}}</td>
+                <td>{{patient.dob}}</td>
+                <td>{{patient.address}}</td>
+                <td>{{patient.phone_number}}</td>
+                <td>{{patient.last_visited}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+        </table>
+        <a id="select_patient" class="w-50 mx-auto mt-4 btn btn-primary text-gray-100 btn-lg btn-user btn-block">
+            Select this patient
+          </a>
+      </div>
+    </div>
+</div>
+<!-- Patient Modal -->
+<div class="modal fade" id="PatientModal" role="dialog">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header bg-gradient-primary">
+            <h4 class="modal-title text-gray-100">Patient Information</h4>
+            <button type="button" class="close modal-title text-gray-100" data-dismiss="modal" aria-hidden="true">x</button>
+               
+          </div>
+          <div class="modal-body">
+               <!-- <h5 class="text-center">Show Patient Info here</h5> -->
+               <div class="row">
+                 <div class="col-5 ml-3 m-2 p-0">
+                  <div class="card bg-gray-100 border-left-primary" style="width: 20rem;">
+                    <img class="card-img mx-auto mt-3 p-0 " style="width: 15rem; height:15rem" src="{{ url_for('static',filename='img/user2.png') }}" alt="Card image cap">
+                    <div class="card-body mt-0 mx-auto">
+                      <p class="card-text text-gray-800">Name: <strong><span id='name' class="text-primary"></span></strong></p> 
+                      <p class="card-text text-gray-800">DOB: <strong><span id='dob' class="text-primary"></span></strong></p> 
+                      <p class="card-text text-gray-800">Gender: <strong><span id='gender'class="text-primary">F</span></strong></p> 
+                      <p class="card-text text-gray-800">Phone: <strong><span id='phone' class="text-primary"></span></strong></p>
+                      <p class="card-text text-gray-800">Last Visited: <strong><span id='visit'class="text-primary"></span></strong></p>
+                    </div>
+                  </div>
+                 </div>
+                 <div class=" card col-6 m-2 ml-4 float-right bg-gray-100 p-0 ">
+                  <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                      <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Test History</a>
+                      <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Details</a>
+                      <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+                    </div>
+                  </nav>
+                  <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active m-5" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                      <h3>Test History</h3>
+                    </div>
+                    <div class="tab-pane fade m-5" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                      <h3>Patients Detail Information</h3>
+                    </div>
+                    <div class="tab-pane fade m-5" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                      
+                      <h3>Contact Info</h3>
+                    </div>
+                  </div>
+                 </div>
+               </div>
+               
+              
+              
+          </div>
+          <div class="modal-footer mx-auto">
+              <button type="button" class="btn btn-primary btn-lg bg-gradient-primary text-gray-100 ">Take the symptoms test</button>
+              <button type="button" class="btn btn-default btn-lg bg-gray-200" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+      <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+{%endblock content%}
+{%block javascript%}
+<!-- Page level plugins -->
+<script src="{{ url_for('static',filename='vendor/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static',filename='vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ url_for('static',filename='vendor/datatables/dataTables.select.min.js') }}"></script>
+
+<!-- Page level custom scripts -->
+<!-- <script type="text/javascript" src="{{ url_for('static',filename='js/patients/search_patients.js') }}"></script> --> -->
+<!-- <script type="text/javascript" src="{{ url_for('static',filename='js/test2.js') }}"></script> --> -->
+<!-- <script type="text/javascript" src="{{ url_for('static',filename='js/demo/datatables-demo.js') }}"></script> -->
+<script>
+  var table= $('#dataTable').DataTable({
+    columnDefs: [{
+        orderable: false,
+        className: 'select-checkbox',
+        targets: 0
+    }],
+    select: {
+        style: 'os',
+        selector: 'td:first-child'
+    },
+    order: [[1, 'asc']]
+});
+var name,dob, phone,visit
+$('#select_patient').click(function () {
+    var patient = table.rows({selected :true}).data();
+    $.each(patient,function(i){
+      name=patient[i][1]
+      dob=patient[i][2]
+      phone=patient[i][4]
+      visit=patient[i][5]
+      $('#PatientModal').modal("show");
+    }) 
+});
+$('#PatientModal').on('show.bs.modal',function(event){
+        $(this).find('.modal-body #name').text(name);
+        $(this).find('.modal-body #dob').text(dob);
+        $(this).find('.modal-body #phone').text(phone);
+        $(this).find('.modal-body #visit').text(visit);
+})
+
+</script>
+
+{%endblock javascript%}
+  

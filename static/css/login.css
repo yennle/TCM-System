@@ -1,0 +1,8 @@
+.bg-login{
+    background: url('../img/login_bg.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  opacity: 0.9;
+}
