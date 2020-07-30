@@ -1,5 +1,9 @@
 from flask import Flask, render_template,url_for
+from forms import RegistrationForm, LoginForm
+
 app = Flask(__name__)
+
+app.config['SECRET_KEY']='2bcc64794f0d49b05f097a8729e353dd'
 
 # Fake Data
 from faker import Faker
@@ -24,6 +28,15 @@ def search_patients():
 @app.route('/patients/test')
 def test_patients():
     return render_template('/patients/symptom_test.html',title="Symptoms Test")
+@app.route('/register')
+def register():
+    form = RegistrationForm()
+    return render_template('register.html',title='Register',form=form)
+@app.route('/login')
+def login():
+    form = LoginForm()
+    return render_template('login.html',title='Login',form=form)
+
 
 if __name__=='__main__':
     app.run(debug=True)
