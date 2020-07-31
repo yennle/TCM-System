@@ -1,0 +1,47 @@
+{%extends "home.html" %}
+{%block css%}
+<!-- Custom styles for this page -->
+
+{%endblock css%}
+
+{%block content%}
+<div class="row">
+    <div class="col-5 ml-3 m-2 p-0">
+     <div class="card bg-gray-100 border-left-primary" style="width: 20rem;">
+       <img class="card-img mx-auto mt-3 p-0 " style="width: 15rem; height:15rem" src="{{ url_for('static',filename='img/user2.png') }}" alt="Card image cap">
+       <div class="card-body mt-0 mx-auto">
+         <p class="card-text text-gray-800">Username: <strong><span id='name' class="text-primary">{{current_user.username}}</span></strong></p> 
+         <p class="card-text text-gray-800">First Name: <strong><span id='dob' class="text-primary">{{current_user.first_name}}</span></strong></p> 
+         <p class="card-text text-gray-800">Last Name: <strong><span id='gender'class="text-primary">{{current_user.last_name}}</span></strong></p> 
+         <p class="card-text text-gray-800">Permission: <strong><span id='phone' class="text-primary">Admin</span></strong></p>
+       </div>
+     </div>
+    </div>
+    <div class=" card col-6 m-2 ml-4 float-right bg-gray-100 p-0 ">
+     <nav>
+       <div class="nav nav-tabs" id="nav-tab" role="tablist">
+         <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Test History</a>
+         <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Details</a>
+         <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+       </div>
+     </nav>
+     <div class="tab-content" id="nav-tabContent">
+       <div class="tab-pane fade show active m-5" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+         <h3>Account Profile</h3>
+       </div>
+       <div class="tab-pane fade m-5" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+         <h3>Permission</h3>
+       </div>
+       <div class="tab-pane fade m-5" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+         
+         <h3>Contact Info</h3>
+       </div>
+     </div>
+    </div>
+  </div>
+{%endblock content%}
+{%block javascript%}
+<!-- Page level plugins -->
+
+{%endblock javascript%}
+  
