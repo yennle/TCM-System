@@ -1,6 +1,9 @@
+import os
+import secrets
+from PIL import Image
 from flask import Flask, render_template, url_for, flash, redirect, request
 from tcm import app, db, bcrypt
-from tcm.forms import RegistrationForm, LoginForm
+from tcm.forms import RegistrationForm, LoginForm, UpdateAccountForm
 from tcm.models import User, Patient
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -21,13 +24,15 @@ for _ in range(100):
 @app.route('/home')
 @login_required
 def home():
-    return render_template('home.html',title="Home")
+    image_file= url_for('static',filename='img/profile_pics/'+current_user.image_file)
+    return render_template('home.html',title="Home", image_file=image_file)
 
 # Search Patient
 @app.route('/patients/search')
 @login_required
 def search_patients():
-    return render_template('/patients/search.html',title="Search Patients", patients=patients)
+    image_file= url_for('static',filename='img/profile_pics/'+current_user.image_file)
+    return render_template('/patients/search.html',title="Search Patients", patients=patients, image_file=image_file)
 
 # Symptom Test
 @app.route('/patients/test')
@@ -73,8 +78,38 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
+def save_picture(form_picture):
+    random_hex =secrets.token_hex(8)
+    _,f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex +f_ext
+    picture_path = os.path.join(app.root_path,'static/img/profile_pics',picture_fn)
+    
+    # Resize image
+    output_size =(512,512)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+
+    i.save(picture_path)
+    return picture_fn
+
 # Account
-@app.route('/account')
+@app.route('/account',methods=['GET','POST'])
 @login_required
 def account():
-    return render_template('account.html',title='Account Profile')
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            current_user.image_file = picture_file
+        current_user.first_name= form.first_name.data
+        current_user.last_name= form.last_name.data
+        current_user.username= form.username.data
+        db.session.commit()
+        flash(f'The account has been updated!.','success')
+        return redirect(url_for('account'))
+    elif request.method =='GET':
+        form.first_name.data =current_user.first_name
+        form.last_name.data =current_user.last_name
+        form.username.data =current_user.username
+    image_file= url_for('static',filename='img/profile_pics/'+current_user.image_file)
+    return render_template('account.html',title='Account Profile', image_file=image_file, form=form)

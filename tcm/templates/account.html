@@ -5,10 +5,21 @@
 {%endblock css%}
 
 {%block content%}
+{% with messages =get_flashed_messages(with_categories=true)%}
+{% if messages %}
+    {% for category, message in messages%}
+    <div id="message"class=" animated--grow-in text-center text-lg text-{{category}} ">
+    <span class="animated--grow-in" >{{message}}</span>
+    </div>
+    {% endfor%}
+
+
+{% endif %}
+{% endwith%}
 <div class="row">
-    <div class="col-5 ml-3 m-2 p-0">
-     <div class="card bg-gray-100 border-left-primary" style="width: 20rem;">
-       <img class="card-img mx-auto mt-3 p-0 " style="width: 15rem; height:15rem" src="{{ url_for('static',filename='img/user2.png') }}" alt="Card image cap">
+    <div class="col-xs-12 col-md-4 col-lg-4 p-0">
+     <div class="card bg-gray-200 border-left-primary" style="width: 20rem;">
+       <img class="card-img border rounded-circle mx-auto mt-3 p-0 " style="width: 15rem; height:15rem" src="{{image_file}}" alt="Card image cap">
        <div class="card-body mt-0 mx-auto">
          <p class="card-text text-gray-800">Username: <strong><span id='name' class="text-primary">{{current_user.username}}</span></strong></p> 
          <p class="card-text text-gray-800">First Name: <strong><span id='dob' class="text-primary">{{current_user.first_name}}</span></strong></p> 
@@ -17,17 +28,86 @@
        </div>
      </div>
     </div>
-    <div class=" card col-6 m-2 ml-4 float-right bg-gray-100 p-0 ">
+    <div class="col-xs-12 col-md-8 col-lg-8 mt-xs-5 bg-gray-100 p-0 ">
      <nav>
        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-         <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Test History</a>
+         <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Update</a>
          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Details</a>
          <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
        </div>
      </nav>
      <div class="tab-content" id="nav-tabContent">
        <div class="tab-pane fade show active m-5" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-         <h3>Account Profile</h3>
+        <div class="row">
+          <div class="col">
+            <div class="">
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Account Infomation</h1>
+              </div>
+              <form method="POST" action="" class="user" enctype="multipart/form-data">
+                {{form.hidden_tag()}}
+                <div class="form-group">
+                    {% if form.first_name.errors %}
+                    {{form.first_name(class="form-control form-control-user is-invalid",placeholder="First Name")}}
+                    <div class="invalid-feedback ml-4">
+                      {% for error in form.first_name.errors%}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                    {{form.first_name(class="form-control form-control-user",placeholder="First Name")}}
+                  {%endif%}
+                    <!-- <input type="text" class="form-control form-control-user" id="exampleFirstName"
+                      placeholder="First Name"> -->
+                  
+                  
+                </div>
+                <div class="form-group">
+                  {% if form.last_name.errors %}
+                  {{form.last_name(class="form-control form-control-user is-invalid",placeholder="Last Name")}}
+                  <div class="invalid-feedback ml-4">
+                    {% for error in form.last_name.errors%}
+                      <span>{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  {{form.last_name(class="form-control form-control-user",placeholder="Last Name")}}
+                {%endif%}
+                  <!-- <input type="text" class="form-control form-control-user" id="exampleLastName"
+                    placeholder="Last Name"> -->
+                </div>
+                <div class="form-group">
+                  {% if form.username.errors %}
+                    {{form.username(class="form-control form-control-user is-invalid",placeholder="Username")}}
+                    <div class="invalid-feedback ml-4">
+                      {% for error in form.username.errors%}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                    {{form.username(class="form-control form-control-user",placeholder="Username")}}
+                  {%endif%}
+                    <!-- <input type="email" class="form-control form-control-user" id="exampleInputEmail"
+                    placeholder="Email Address"> -->
+                </div>
+                <div class="form-group">
+                  {{form.picture.label()}}
+                  {{form.picture(class="form-control-file")}}
+                  {% if form.picture.errors %}
+                    {% for error in form.picture.errors%}
+                      <span class="text-danger">{{ error }}</span>
+                    {% endfor %}
+                  {%endif%}
+                </div>
+                {{form.submit(class="btn btn-primary btn-user btn-block")}}
+                <!-- <a href="login.html" class="btn btn-primary btn-user btn-block">
+                  Register Account
+                </a> -->
+              </form>
+              
+            </div>
+          </div>
+        </div>
        </div>
        <div class="tab-pane fade m-5" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
          <h3>Permission</h3>
@@ -42,6 +122,8 @@
 {%endblock content%}
 {%block javascript%}
 <!-- Page level plugins -->
-
+<script>
+  setTimeout(function() { $("#message").html('<br/>'); }, 5000);
+</script>
 {%endblock javascript%}
   
