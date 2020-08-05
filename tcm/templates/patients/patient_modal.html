@@ -1,0 +1,63 @@
+<!-- Patient Modal -->
+<div class="modal fade" id="PatientModal" role="dialog">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-primary">
+              <h4 class="modal-title text-gray-100">Patient Information</h4>
+              <button type="button" class="close modal-title text-gray-100" data-dismiss="modal" aria-hidden="true">x</button>
+                 
+            </div>
+            <div class="modal-body">
+                 <!-- <h5 class="text-center">Show Patient Info here</h5> -->
+                 <div class="row">
+                   <div class="col-xs-12 col-md-4 col-lg-4">
+                    <div class="card bg-gray-100 border-left-primary m-0 ml-4" style="width: 18rem;">
+                      <img class="card-img mx-auto mt-3 p-0 " style="width: 15rem; height:15rem" src="{{ url_for('static',filename='img/user2.png') }}" alt="Card image cap">
+                      <div class="card-body mt-0 mx-auto">
+                        <p class="card-text text-gray-800">Name: <strong><span id='name' class="text-primary"></span></strong></p> 
+                        <p class="card-text text-gray-800">DOB: <strong><span id='dob' class="text-primary"></span></strong></p> 
+                        <p class="card-text text-gray-800">Gender: <strong><span id='gender'class="text-primary">F</span></strong></p> 
+                        <p class="card-text text-gray-800">Phone: <strong><span id='phone' class="text-primary"></span></strong></p>
+                        <!-- <p class="card-text text-gray-800">Last Visited: <strong><span id='visit'class="text-primary"></span></strong></p> -->
+                      </div>
+                    </div>
+                   </div>
+                   <div class="col-xs-12 col-md-8 col-lg-8 mt-xs-5 ">
+                       <div class="m-0 mr-5 bg-gray-100 border h-100">
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Test History</a>
+                              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Details</a>
+                              <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+                            </div>
+                          </nav>
+                          <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active m-5" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                              <h3>Test History</h3>
+                            </div>
+                            <div class="tab-pane fade m-5" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                              <h3>Patients Detail Information</h3>
+                            </div>
+                            <div class="tab-pane fade m-5" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                              
+                              <h3>Contact Info</h3>
+                            </div>
+                          </div>
+                       </div>
+                    
+                   </div>
+                 </div>
+                 
+                
+                
+            </div>
+            <div class="modal-footer mx-auto">
+                <button type="button" class="btn btn-primary btn-lg bg-gradient-primary text-gray-100 ">Take the symptoms test</button>
+                <button type="button" class="btn btn-default btn-lg bg-gray-200" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->

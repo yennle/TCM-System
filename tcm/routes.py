@@ -1,9 +1,10 @@
 import os
 import secrets
+import us
 from PIL import Image
 from flask import Flask, render_template, url_for, flash, redirect, request
 from tcm import app, db, bcrypt
-from tcm.forms import RegistrationForm, LoginForm, UpdateAccountForm
+from tcm.forms import RegistrationForm, LoginForm, UpdateAccountForm, PatientForm
 from tcm.models import User, Patient
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -20,22 +21,36 @@ for _ in range(100):
                     'last_visited': fake.date_this_month(),
                  }
     patients.append(my_dict)
+# def add_patients_db():
+#     patients=[]
+# fake = Faker('en_US')
+# for _ in range(100):
+#     my_dict = {    'name': fake.name(),
+#                     'dob': fake.date_of_birth(),
+#                     'address': fake.street_address(),
+#                     'phone_number': fake.phone_number(),
+#                     'last_visited': fake.date_this_month(),
+#                  }
+#     patients.append(my_dict)
+
 # Home
 @app.route('/home')
 @login_required
 def home():
+    
     image_file= url_for('static',filename='img/profile_pics/'+current_user.image_file)
     return render_template('home.html',title="Home", image_file=image_file)
 
 # Search Patient
-@app.route('/patients/search')
+@app.route('/patient/search')
 @login_required
 def search_patients():
+    patients= Patient.query.all()
     image_file= url_for('static',filename='img/profile_pics/'+current_user.image_file)
     return render_template('/patients/search.html',title="Search Patients", patients=patients, image_file=image_file)
 
 # Symptom Test
-@app.route('/patients/test')
+@app.route('/patient/test')
 @login_required
 def test_patients():
     return render_template('/patients/symptom_test.html',title="Symptoms Test")
@@ -113,3 +128,19 @@ def account():
         form.username.data =current_user.username
     image_file= url_for('static',filename='img/profile_pics/'+current_user.image_file)
     return render_template('account.html',title='Account Profile', image_file=image_file, form=form)
+
+@app.route('/patient/add',methods=['GET','POST'])
+@login_required
+def add_patient():
+    form = PatientForm()
+    form.state.choices = us.states.STATES
+    if form.validate_on_submit():
+        patient = Patient(first_name= form.first_name.data, last_name=form.last_name.data, birthday=form.birthday.data, 
+                    gender=form.gender.data, address=form.address.data, city=form.city.data, state=form.state.data,
+                    zipcode=form.zipcode.data, phone_number=form.phone_number.data,user_modified=current_user, note=form.note.data)
+        db.session.add(patient)
+        db.session.commit()
+        flash(f'The patient has been added to database!.','success')
+        return redirect(url_for('search_patients'))
+    image_file= url_for('static',filename='img/profile_pics/'+current_user.image_file)
+    return render_template('patients/add_patient.html',title='Add Patient', image_file=image_file, form=form)  

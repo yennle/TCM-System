@@ -57,10 +57,6 @@
                   {% else %}
                     {{form.first_name(class="form-control form-control-user",placeholder="First Name")}}
                   {%endif%}
-                    <!-- <input type="text" class="form-control form-control-user" id="exampleFirstName"
-                      placeholder="First Name"> -->
-                  
-                  
                 </div>
                 <div class="form-group">
                   {% if form.last_name.errors %}
@@ -73,8 +69,6 @@
                 {% else %}
                   {{form.last_name(class="form-control form-control-user",placeholder="Last Name")}}
                 {%endif%}
-                  <!-- <input type="text" class="form-control form-control-user" id="exampleLastName"
-                    placeholder="Last Name"> -->
                 </div>
                 <div class="form-group">
                   {% if form.username.errors %}
@@ -87,8 +81,6 @@
                   {% else %}
                     {{form.username(class="form-control form-control-user",placeholder="Username")}}
                   {%endif%}
-                    <!-- <input type="email" class="form-control form-control-user" id="exampleInputEmail"
-                    placeholder="Email Address"> -->
                 </div>
                 <div class="form-group">
                   {{form.picture.label()}}
@@ -100,9 +92,6 @@
                   {%endif%}
                 </div>
                 {{form.submit(class="btn btn-primary btn-user btn-block")}}
-                <!-- <a href="login.html" class="btn btn-primary btn-user btn-block">
-                  Register Account
-                </a> -->
               </form>
               
             </div>
