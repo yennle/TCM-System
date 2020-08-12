@@ -1,0 +1,212 @@
+{%extends "home.html" %}
+{%block css%}
+<!-- Custom styles for this page -->
+
+
+{%endblock css%}
+
+{%block content%}
+<div class="row mb-4">
+    <a href="{{url_for('search_patients')}}" class="btn btn-light btn-icon-split">
+        <span class="icon text-gray-600">
+          <i class="fas fa-arrow-left"></i>
+        </span>
+        <span class="text border">Back</span>
+      </a>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-md-4 col-lg-4 h-100">
+     <div class="card bg-gray-100 border-left-primary m-0 ml-4 h-100" style="width: 18rem;">
+       <img class="card-img mx-auto p-0 " style="width: 15rem; height:15rem" src="{{patient_image}}" alt="image">
+       <div class="card-body mt-0 mx-auto ">
+         <p class="card-text text-gray-800">Name: <strong><span id='name' class="text-primary">{{patient.first_name}} {{patient.last_name}}</span></strong></p> 
+         <p class="card-text text-gray-800">DOB: <strong><span id='dob' class="text-primary">{{patient.birthday.strftime('%b %d, %Y')}}</span></strong></p> 
+         <p class="card-text text-gray-800">Gender: <strong><span id='gender'class="text-primary">{% if patient.gender == 'F' %}Female {%else%} Male {%endif%}</span></strong></p> 
+         <a href="#" class="btn btn-success btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-stream"></i>
+            </span>
+            <span class="text">Take symptoms test</span>
+          </a>
+         
+         <!-- <p class="card-text text-gray-800">Last Visited: <strong><span id='visit'class="text-primary"></span></strong></p> -->
+       </div>
+     </div>
+    </div>
+    <div class="col-xs-12 col-md-8 col-lg-8 mt-xs-5 mb-4">
+        <div class="m-0 bg-gray-100 border h-100">
+         <nav>
+             <div class="nav nav-tabs" id="nav-tab" role="tablist">
+               <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="true">Profile</a>
+               <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-test" role="tab" aria-controls="nav-test" aria-selected="false">Test History</a>
+               <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+             </div>
+           </nav>
+           <div class="tab-content" id="nav-tabContent">
+             <div class="tab-pane fade show active m-3" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div class="row">
+                    <!-- Left side  -->
+                    <div class="col">
+                      <!-- First Name and Last Name -->
+                      <div class="row">
+                        <!-- First Name -->
+                        <div class="col">
+                          <div class="form-group">
+                            {{form.first_name.label(class = "form-label")}}
+                            {{form.first_name(class="form-control", readonly=true)}}
+                          </div>
+                        </div>
+                        <!-- Last Name -->
+                        <div class="col">
+                          <div class="form-group">
+                            {{form.last_name.label(class = "form-label")}}
+                            {{form.last_name(class="form-control", readonly=true)}}
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Date of Birth -->
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            {{form.birthday.label(class = "form-label")}}
+                            {{form.birthday(class="form-control", readonly=true)}}
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Gender -->
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            {{form.gender.label(class = "form-label")}}
+                            {{form.gender(class="form-control", readonly=true)}}
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Phone Number -->
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            {{form.phone_number.label(class = "form-label")}}
+                            {{form.phone_number(class="form-control", readonly=true)}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Right side -->
+                    <div class="col">
+                      <!-- Address -->
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            {{form.address.label(class = "form-label")}}
+                            {{form.address(class="form-control", readonly=true)}}
+                          </div>
+                        </div>
+                      </div>
+                      <!-- City, State, Zipcode -->
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            {{form.city.label(class = "form-label")}}
+                            {{form.city(class="form-control", readonly=true)}}
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group">
+                            {{form.state.label(class = "form-label")}}
+                            {{form.state(class="form-control", readonly=true)}}
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group">
+                            {{form.zipcode.label(class = "form-label")}}
+                            {{form.zipcode(class="form-control", readonly=true)}}
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Note -->
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            {{form.note.label(class = "form-label")}}
+                            {{form.note(class="form-control", readonly=true)}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+               <div class="row">
+                   <div class="col text-center m-0">
+                     <a href="{{url_for('update_patient', patient_id=patient.id)}}" class="btn btn-info btn-icon-split">
+                         <span class="icon text-white-50">
+                            <i class="far fa-edit"></i>
+                         </span>
+                         <span class="text">Update the patient </span>
+                       </a>
+                       <!-- Button trigger modal -->
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+    Delete
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel">Delete this patient?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!-- <div class="modal-body">
+          ...
+        </div> -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <form action="{{url_for('delete_patient', patient_id=patient.id)}}" method="POST">
+            <input class="btn btn-danger" type="submit" value="Delete">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+                   </div>
+                 
+               </div>
+               <hr/>
+               <small class="float-right mb-4">Last modified by {{patient.user_modified.first_name}} {{patient.user_modified.last_name}} on {{patient.date_modified.strftime("%m/%d/%Y - %I:%M %p")}}</small>
+               
+                
+             </div>
+             <div class="tab-pane fade m-3" id="nav-test" role="tabpanel" aria-labelledby="nav-test-tab">
+                
+                <h3>Test History</h3>
+             </div>
+             <div class="tab-pane fade m-5" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+               
+               <h3>Contact Info</h3>
+             </div>
+           </div>
+        </div>
+     
+    </div>
+  </div>
+
+{%endblock content%}
+{%block javascript%}
+<!-- Page level plugins -->
+<!-- <script src="{{ url_for('static',filename='vendor/jquery-ui/jquery-ui.min.js') }}"></script> -->
+<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+  <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+<!-- Page level custom scripts -->
+<!-- <script>
+  $( function() {
+    $( "#dob" ).datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+  } );
+  </script> -->
+</head>
+<body>
+{%endblock javascript%}

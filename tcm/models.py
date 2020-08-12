@@ -19,7 +19,6 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"User('{self.username}', '{self.first_name}', '{self.last_name}', '{self.image_file}')"
 
-
 class Patient(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(30),nullable=False)
@@ -37,6 +36,7 @@ class Patient(db.Model):
     modified_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     # doctor = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     note = db.Column(db.Text)
-    users = db.relationship(User)
+    image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     def __repr__(self):
         return f"Patient('{self.first_name}', '{self.last_name}')"
+

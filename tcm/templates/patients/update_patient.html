@@ -13,7 +13,7 @@
 <!-- DataTales Patients -->
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Add Patient</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Update Patient</h6>
   </div>
   <div class="card-body">
     <form method="POST" action="" class="user" enctype="multipart/form-data">
@@ -90,7 +90,7 @@
                   {% endfor %}
                 </div>
                 {% else %}
-                {{form.gender.label(class ="form-label")}}
+                {{form.gender.label(class = "form-label")}}
                 {{form.gender(class="form-control ")}}
                 {%endif%}
               </div>
@@ -205,13 +205,22 @@
                 {{form.note(class="form-control",rows='4',cols='5')}}
                 {%endif%}
               </div>
+              <div class="form-group">
+                {{form.picture.label()}}
+                {{form.picture(class="form-control-file")}}
+                {% if form.picture.errors %}
+                  {% for error in form.picture.errors%}
+                    <span class="text-danger">{{ error }}</span>
+                  {% endfor %}
+                {%endif%}
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div class="row  d-inline">
         <div class="col text-center">
-          <a href="{{url_for('search_patients')}}" class="btn btn-secondary btn-lg d-inline">Cancel</a>
+          <a href="{{url_for('patient_info', patient_id=patient.id)}}" class="btn btn-secondary btn-lg d-inline">Cancel</a>
           {{form.submit(class="btn btn-primary btn-lg d-inline")}}
         </div>
       </div>

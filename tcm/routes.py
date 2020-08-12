@@ -1,10 +1,11 @@
 import os
 import secrets
 import us
+import datetime
 from PIL import Image
-from flask import Flask, render_template, url_for, flash, redirect, request
+from flask import Flask, render_template, url_for, flash, redirect, request, abort
 from tcm import app, db, bcrypt
-from tcm.forms import RegistrationForm, LoginForm, UpdateAccountForm, PatientForm
+from tcm.forms import RegistrationForm, LoginForm, UpdateAccountForm, PatientForm, UpdatePatientForm, PatientInfoForm, STATE_CHOICES, GENDER_CHOICES
 from tcm.models import User, Patient
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -21,8 +22,13 @@ for _ in range(100):
                     'last_visited': fake.date_this_month(),
                  }
     patients.append(my_dict)
-# def add_patients_db():
-#     patients=[]
+def add_patients_db():
+    patients=Patient(first_name= fake.first_name(), last_name=fake.first_name(), birthday=fake.date_of_birth(), 
+                    gender=form.gender.data, address=form.address.data, city=form.city.data, state=form.state.data,
+                    zipcode=form.zipcode.data, phone_number=form.phone_number.data,user_modified=current_user, note=form.note.data)
+        # db.session.add(patient)
+        # db.session.commit()
+
 # fake = Faker('en_US')
 # for _ in range(100):
 #     my_dict = {    'name': fake.name(),
@@ -133,7 +139,6 @@ def account():
 @login_required
 def add_patient():
     form = PatientForm()
-    form.state.choices = us.states.STATES
     if form.validate_on_submit():
         patient = Patient(first_name= form.first_name.data, last_name=form.last_name.data, birthday=form.birthday.data, 
                     gender=form.gender.data, address=form.address.data, city=form.city.data, state=form.state.data,
@@ -144,3 +149,74 @@ def add_patient():
         return redirect(url_for('search_patients'))
     image_file= url_for('static',filename='img/profile_pics/'+current_user.image_file)
     return render_template('patients/add_patient.html',title='Add Patient', image_file=image_file, form=form)  
+
+@app.route('/patient/<int:patient_id>',methods=['GET','POST'])
+@login_required
+def patient_info(patient_id):
+    form = PatientInfoForm()
+    image_file= url_for('static',filename='img/profile_pics/'+current_user.image_file)
+    patient= Patient.query.get_or_404(patient_id)
+    if request.method =='GET':
+        form.first_name.data =patient.first_name
+        form.last_name.data = patient.last_name
+        form.birthday.data = patient.birthday.strftime('%m/%d/%Y')
+        form.gender.data = dict(GENDER_CHOICES).get(patient.gender)
+        form.address.data = patient.address
+        form.city.data = patient.city
+        # form.state.data = dict(STATE_CHOICES).get(patient.state)
+        form.state.data = patient.state
+        form.zipcode.data = patient.zipcode
+        form.phone_number.data = patient.phone_number
+        form.note.data = patient.note
+        patient_image = url_for('static',filename='img/profile_pics/'+patient.image_file)
+        # dict(form.state.choices).get(form.state.data)
+    return render_template('patients/patient_info.html',title='Patient Information', image_file=image_file, patient=patient,form=form,patient_image=patient_image )
+
+@app.route('/patient/<int:patient_id>/update',methods=['GET','POST'])
+@login_required
+def update_patient(patient_id):
+    form = UpdatePatientForm()
+    form.state.choices = us.states.STATES
+    image_file= url_for('static',filename='img/profile_pics/'+current_user.image_file)
+    patient= Patient.query.get_or_404(patient_id)
+    if patient.user_modified != current_user:
+        abort(403)
+    if form.validate_on_submit():
+        patient.first_name= form.first_name.data
+        patient.last_name= form.last_name.data
+        patient.birthday= form.birthday.data
+        patient.gender= form.gender.data
+        patient.address= form.address.data
+        patient.city= form.city.data
+        patient.state= form.state.data
+        patient.zipcode= form.zipcode.data
+        patient.phone_number= form.phone_number.data
+        patient.note= form.note.data
+        patient.date_modified = datetime.datetime.now()
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            patient.image_file = picture_file
+        db.session.commit()
+        return redirect(url_for('patient_info',patient_id=patient.id))
+    elif request.method =='GET':
+        form.first_name.data =patient.first_name
+        form.last_name.data = patient.last_name
+        form.birthday.data = patient.birthday
+        form.gender.data = patient.gender
+        form.address.data = patient.address
+        form.city.data = patient.city
+        form.state.data = patient.state 
+        form.zipcode.data = patient.zipcode
+        form.phone_number.data = patient.phone_number
+        form.note.data = patient.note
+    return render_template('patients/update_patient.html',title='Patient Information', image_file=image_file, patient=patient,form=form)
+
+@app.route('/patient/<int:patient_id>/delete',methods=['POST'])
+@login_required
+def delete_patient(patient_id):
+    patient= Patient.query.get_or_404(patient_id)
+    if patient.user_modified != current_user:
+        abort(403)  
+    db.session.delete(patient)
+    db.session.commit()
+    return redirect(url_for('search_patients'))

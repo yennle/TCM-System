@@ -38,25 +38,26 @@
         </thead>
         <tbody>
             {%for patient in patients %}
-            <tr>
-                <td></td>
+            <tr data-url ="{{url_for('patient_info', patient_id=patient.id)}}" data-id="{{patient.id}}">
+                <td><span style="display: block;">{{patient.id}}</span></td>
                 <td>{{patient.first_name}} {{patient.last_name}}</td>
                 <td>{{patient.birthday.strftime('%m/%d/%Y')}}</td>
                 <td>{{patient.gender}}</td>
                 <td>{{patient.phone_number}}</td>
-                <td></td>
+                <td> <a href="{{url_for('patient_info', patient_id=patient.id)}}">Select</a> </td>
             </tr>
             {%endfor%}
         </tbody>
+        {% include '/patients/patient_modal.html' %}
         </table>
-        <a id="select_patient" class="w-50 mx-auto mt-4 btn btn-primary text-gray-100 btn-lg btn-user btn-block">
+        <!-- <a id="select_patient" class="w-50 mx-auto mt-4 btn btn-primary text-gray-100 btn-lg btn-user btn-block">
             Select this patient
-          </a>
+          </a> -->
       </div>
     </div>
 </div>
 
-{% include '/patients/patient_modal.html' %}
+
 
 {%endblock content%}
 {%block javascript%}
@@ -85,14 +86,26 @@
 });
 var name,dob, phone,gender
 $('#select_patient').click(function () {
-    var patient = table.rows({selected :true}).data();
-    $.each(patient,function(i){
-      name=patient[i][1]
-      dob=patient[i][2]
-      gender=patient[i][3]
-      phone=patient[i][4]
-      $('#PatientModal').modal("show");
-    }) 
+    var row = table.rows({selected :true}).data();
+    var selected = table.rows({selected:true})
+    
+    patient_id=$(selected).attr("data-id")
+    
+    alert(patient_id)
+    //alert(row.attr("data-url"))
+    $.ajax({
+      type: "get",
+      url: $(selected).attr("data-url"),
+      dataType: "json",
+      beforeSend:function(){
+          $('#PatientModal').modal('show')
+          //$('#patient_'+patient_id).modal('show')
+      },
+      success: function (response) {
+          alert('success')
+      }
+  });
+   
 });
 $('#PatientModal').on('show.bs.modal',function(event){
         $(this).find('.modal-body #name').text(name);
