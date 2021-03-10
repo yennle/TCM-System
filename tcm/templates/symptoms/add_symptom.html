@@ -1,0 +1,327 @@
+{%extends "home.html" %}
+{%block css%}
+<!-- Custom styles for this page -->
+<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
+
+<!-- <link href="{{ url_for('static',filename='vendor/jquery-ui/jquery-ui.theme.css') }}" rel="stylesheet"> -->
+<!-- <link href="{{ url_for('static',filename='vendor/jquery-ui/jquery-ui.structure.css') }}" rel="stylesheet"> -->
+<!-- <link href="{{ url_for('static',filename='vendor/datatables/jquery-ui/jquery-ui.css') }}" rel="stylesheet"> -->
+
+{%endblock css%}
+
+{%block content%}
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Add Symptom</h6>
+  </div>
+  <div class="card-body">
+    <form method="POST" id='symptom_form' action="" class="user" enctype="multipart/form-data">
+      {{form.hidden_tag()}}
+      <div class="row">
+        <!-- Left side  -->
+        <div class="col">
+          <!-- Feature Number -->
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                {% if form.feature_number.errors %}
+                {{form.feature_number.label(class = "form-label")}}
+                {{form.feature_number(class="form-control is-invalid")}}
+                <div class="invalid-feedback ml-4">
+                  {% for error in form.feature_number.errors%}
+                  <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% else %}
+                {{form.feature_number.label(class = "form-label")}}
+                {{form.feature_number(class="form-control")}}
+                {%endif%}
+              </div>
+            </div>
+          </div>
+          <!-- Feature -->
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                {% if form.feature.errors %}
+                {{form.feature.label(class = "form-label")}}
+                {{form.feature(class="form-control is-invalid")}}
+                <div class="invalid-feedback ml-4">
+                  {% for error in form.feature.errors%}
+                  <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% else %}
+                {{form.feature.label(class ="form-label")}}
+                {{form.feature(class="form-control ")}}
+                {%endif%}
+              </div>
+            </div>
+          </div>
+          <!-- Question -->
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                {% if form.question.errors %}
+                {{form.question.label(class = "form-label")}}
+                {{form.question(class="form-control is-invalid")}}
+                <div class="invalid-feedback ml-4">
+                  {% for error in form.question.errors%}
+                  <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% else %}
+                {{form.question.label(class = "form-label")}}
+                {{form.question(class="form-control")}}
+                {%endif%}
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Right side -->
+        <div class="col">
+          <!-- Category -->
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                {% if form.category.errors %}
+                {{form.category.label(class = "form-label")}}
+                {{form.category(class="form-control is-invalid")}}
+                <div class="invalid-feedback ml-4">
+                  {% for error in form.category.errors%}
+                  <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% else %}
+                {{form.category.label(class = "form-label")}}
+                {{form.category(class="form-control ")}}
+                {%endif%}
+              </div>
+            </div>
+          </div>
+          <!-- Group -->
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                {% if form.group.errors %}
+                  {{form.group.label(class = "form-label")}}
+                  <div class="row">
+                    <div class="col-8">
+                      {{form.group(class="form-control is-invalid", id="group_list")}}
+                    </div>
+                    <div class="col-4 mt-2">
+                      <a href=""><i class="fas fa-plus-circle"></i> Add Group</a>
+                    </div>
+                  </div>
+                  <div class="invalid-feedback ml-4">
+                    {% for error in form.group.errors%}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  {{form.group.label(class = "form-label")}}
+                  <div class="row">
+                    <div class="col-8">
+                      {{form.group(class="form-control", id="group_list")}}
+                    </div>
+                    <div class="col-4 mt-2">
+                      <a href="" data-toggle="modal" data-target="#AddGroupModal"><i class="fas fa-plus-circle"></i> Add Group</a>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="AddGroupModal" tabindex="-1" role="dialog" aria-labelledby="AddGroupModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="AddGroupModalLabel">Add Group</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <!-- <form  method="POST" action="" class="user" enctype="multipart/form-data"> -->
+                              <!-- <form id="group_form" novalidate  method="POST" action=""> -->
+                                <div class="form-group">
+                                  Group Name
+                                    <input class=" form-control" id="group_name" type="text">
+                                </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button id="addgroup_btn"
+                            class="btn btn-primary">Add Group</button>
+                            <!-- <button id="addgroup_btn" type="submit" formnovalidate class="btn btn-primary">Add Group</button> -->
+                          </div>
+                        <!-- </form> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {%endif%}
+              </div>
+            </div>
+          </div>
+          <!-- Subgroup -->
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                {% if form.subgroup.errors %}
+                  {{form.subgroup.label(class = "form-label")}}
+                  <div class="row">
+                    <div class="col-8">
+                      {{form.subgroup(class="form-control is-invalid",id='subgroup_list')}}
+                    </div>
+                    <div class="col-4 mt-2">
+                      <a href=""><i class="fas fa-plus-circle js-update-group"></i> Add Subgroup</a>
+                    </div>
+                  </div>
+                  <div class="invalid-feedback ml-4">
+                    {% for error in form.subgroup.errors%}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  {{form.subgroup.label(class = "form-label")}}
+                  <div class="row">
+                    <div class="col-8">
+                      {{form.subgroup(class="form-control",id='subgroup_list')}}
+                    </div>
+                    <div class="col-4 mt-2">
+                      <a  id="add_subgroup_link" href="" data-toggle="modal" data-target="#AddSubgroupModal"><i class="fas fa-plus-circle"></i> Add Subgroup</a>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="AddSubgroupModal" tabindex="-1" role="dialog" aria-labelledby="AddSubgroupModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="AddSubgroupModalLabel">Add Subgroup</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <form action="" type="POST">
+                          <div class="modal-body">
+                            
+                              <div class="form-group">
+                                Group Name
+                                <input id="group_name_sub" class="form-control" type="text" readonly>
+                              </div>
+                              <div class="form-group"> 
+                                Subgroup Name
+                                <input id="subgroup_name" class=" form-control" type="text">
+                              </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button id="addsubgroup_btn" type="submit" class="btn btn-primary ">Add Subgroup</button>
+                          </div>
+                        </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {%endif%}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row  d-inline">
+        <div class="col text-center">
+          <a href="{{url_for('search_patient')}}" class="btn btn-secondary btn-lg d-inline">Cancel</a>
+          {{form.submit(class="btn btn-primary btn-lg d-inline")}}
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{%endblock content%}
+{%block javascript%}
+<!-- Page level plugins -->
+<!-- <script src="{{ url_for('static',filename='vendor/jquery-ui/jquery-ui.min.js') }}"></script> -->
+<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+  <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+<!-- Page level custom scripts -->
+<!-- <script>
+  $( function() {
+    $( "#dob" ).datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+  } );
+  </script> -->
+<!-- <script src="{{ url_for('static',filename='js/symptoms/add_group.js') }}"></script> -->
+<script>
+  $( document ).ready(function() {
+    load_subgroup()
+    $('#addgroup_btn').on('click',function(event){
+        $.ajax({
+            data:{
+                name: $('#group_name').val()
+            },
+            type: 'POST',
+            url: '/group/add'
+        })
+        .done(function(data){  
+           $('#AddGroupModal').modal('toggle');
+          alert(data['name']+ data['id'])
+
+          // Add new option to dropdown list
+          var newOption = $('<option>');
+          newOption.attr('value',data['id']).text(data['name']);
+          $('#group_list').append(newOption);
+          $('#group_list').val(data['id']);
+          load_subgroup()
+        });
+        event.preventDefault()
+    });
+    $('#addsubgroup_btn').on('click',function(event){
+      $.ajax({
+            data:{
+                name: $('#subgroup_name').val(),
+                group_id:$('#group_list').children("option:selected").val()
+            },
+            type: 'POST',
+            url: '/subgroup/add',
+            
+        })
+        .done(function(data){  
+          $('#AddSubgroupModal').modal('toggle');
+          alert(data['name']+ data['id'])
+
+          // Add new option to dropdown list
+          var newOption = $('<option>');
+          newOption.attr('value',data['id']).text(data['name']);
+          $('#subgroup_list').append(newOption);
+          $('#subgroup_list').val(data['id']);
+        });
+        event.preventDefault()
+    });
+    //Update Group name in subgroup form
+  
+    $("#add_subgroup_link").on('click', function () {
+      var selected_group=$('#group_list').children("option:selected").text();  
+      //alert(selected_group)
+      $('#group_name_sub').val(selected_group)
+    });
+    $("#group_list").on('change',load_subgroup);
+});
+</script>
+
+<script>
+  
+  function load_subgroup(){
+    let group_select = document.getElementById('group_list');
+    let subgroup_select = document.getElementById('subgroup_list');
+    group = group_select.value;
+    fetch('/subgroup/'+ group).then(function(response){
+      response.json().then(function(data){
+        let optiionHTML ='';
+        for (let subgroup of data.subgroups){
+          optiionHTML += '<option value="' + subgroup.id + '">' + subgroup.name + '</option>';
+        }
+        subgroup_select.innerHTML = optiionHTML;
+      })
+    })
+  }
+</script>
+{%endblock javascript%}

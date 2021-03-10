@@ -101,7 +101,7 @@
             <div class="col">
               <div class="form-group">
                 {% if form.phone_number.errors %}
-                {{form.gender.label(class = "form-label")}}
+                {{form.phone_number.label(class = "form-label")}}
                 {{form.phone_number(class="form-control is-invalid")}}
                 <div class="invalid-feedback ml-4">
                   {% for error in form.phone_number.errors%}
@@ -211,7 +211,7 @@
       </div>
       <div class="row  d-inline">
         <div class="col text-center">
-          <a href="{{url_for('search_patients')}}" class="btn btn-secondary btn-lg d-inline">Cancel</a>
+          <a href="{{url_for('search_patient')}}" class="btn btn-secondary btn-lg d-inline">Cancel</a>
           {{form.submit(class="btn btn-primary btn-lg d-inline")}}
         </div>
       </div>

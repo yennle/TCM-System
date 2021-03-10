@@ -1,4 +1,5 @@
 from flask_login import current_user
+# from sqlalchemy import text
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, DateField, SelectField,DateTimeField
@@ -6,7 +7,9 @@ from wtforms.validators import DataRequired, Length, EqualTo, ValidationError
 from tcm.models import User
 import us
 
-
+#############################################
+#                  USER                     #
+#############################################
 class RegistrationForm(FlaskForm):
     first_name = StringField('First Name',validators=[DataRequired()])
     last_name = StringField('Last Name',validators=[DataRequired()])
@@ -39,6 +42,10 @@ class UpdateAccountForm(FlaskForm):
             if user :
                 raise ValidationError('That username is taken. Please choose a different one.')
 
+#############################################
+#                  PATIENT                  #
+#############################################
+
 GENDER_CHOICES=[('M','Male'),('F','Female')]
 STATE_CHOICES= [(s.abbr, s.name) for s in us.states.STATES]
 
@@ -68,6 +75,7 @@ class PatientInfoForm(FlaskForm):
     note = TextAreaField('Note')
     lasted_visit = StringField('Lasted Visit')
     upcoming_appt = StringField('Upcoming Appointment')
+    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg','png'])])
 class UpdatePatientForm(FlaskForm):
     first_name = StringField('First Name',validators=[DataRequired()])
     last_name = StringField('Last Name',validators=[DataRequired()])
@@ -84,3 +92,24 @@ class UpdatePatientForm(FlaskForm):
     upcoming_appt = DateField('Upcoming Appointment', format='%Y-%m-%d')
     picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg','png'])])
     submit = SubmitField('Update The Patient')
+
+#############################################
+#                  SYMPTOM                  #
+#############################################
+CATEGORY_CHOICE=[('P','Patient'),('A','Advanced')]
+class GroupForm(FlaskForm):
+    name = StringField('Group Name: ',validators=[DataRequired()])
+class SubgroupForm(FlaskForm):
+    name = StringField('Subgroup Name: ',validators=[DataRequired()])
+    # group = SelectField('Group', choices=[(g.id, g.name) for g in Group.query.order_by(text('name'))], validators=[DataRequired()] )
+    group = SelectField('Group', validators=[DataRequired()] )
+    submit = SubmitField('Add Subgroup')
+class SymptomForm(FlaskForm):
+    feature_number = StringField('Feature Number',validators=[DataRequired()])
+    feature = StringField('Feature',validators=[DataRequired()])
+    question = TextAreaField('Question',validators=[DataRequired()])
+    category = SelectField('Category',choices=CATEGORY_CHOICE, validators=[DataRequired()])
+    group = SelectField('Group', validators=[DataRequired()] )
+    #subgroup = SelectField('Subgroup', choices=[(g.id, g.name) for g in Subgroup.query.order_by(text('name'))], validators=[DataRequired()] )
+    subgroup = SelectField('Subgroup', validators=[DataRequired()] )
+    submit = SubmitField('Add Symptom')

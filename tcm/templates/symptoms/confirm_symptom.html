@@ -1,0 +1,65 @@
+{%extends "home.html" %}
+{%block css%}
+<!-- Custom styles for this page -->
+
+
+{%endblock css%}
+
+{%block content%}
+<div class="row mb-4">
+    <a href="{{url_for('search_patient')}}" class="btn btn-light btn-icon-split">
+        <span class="icon text-gray-600">
+          <i class="fas fa-arrow-left"></i>
+        </span>
+        <span class="text border">Back</span>
+      </a>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-md-4 col-lg-4 h-100">
+     <div class="card bg-gray-100 border-left-primary m-0 ml-4 h-100" style="width: 18rem;">
+       <img class="card-img mx-auto p-0 " style="width: 15rem; height:15rem" src="{{patient_image}}" alt="image">
+       <div class="card-body mt-0 mx-auto ">
+         <p class="card-text text-gray-800">Name: <strong><span id='name' class="text-primary">{{patient.first_name}} {{patient.last_name}}</span></strong></p> 
+         <p class="card-text text-gray-800">DOB: <strong><span id='dob' class="text-primary">{{patient.birthday.strftime('%b %d, %Y')}}</span></strong></p> 
+         <p class="card-text text-gray-800">Gender: <strong><span id='gender'class="text-primary">{% if patient.gender == 'F' %}Female {%else%} Male {%endif%}</span></strong></p> 
+         <a href="{{url_for('test_patient', patient=patient.id)}}" class="btn btn-success btn-icon-split mb-2 mx-auo">
+            <span class="icon text-white-50">
+                <i class="fas fa-stream"></i>
+            </span>
+            <span class="text">Take symptoms test</span>
+            </a>
+            {% for test in patient.tests %}
+                {% if loop.last %}
+                <small> Latest test: {{ test.test_datetime.strftime("%m/%d/%Y - %I:%M %p") }}</small>
+                {% endif %}
+            {% endfor %}  
+         <!-- <p class="card-text text-gray-800">Last Visited: <strong><span id='visit'class="text-primary"></span></strong></p> -->
+       </div>
+     </div>
+    </div>
+    <div class="col-xs-12 col-md-8 col-lg-8 mt-xs-5 mb-4">
+        <div class="m-0 bg-gray-100 border h-100">
+         
+        </div>
+     
+    </div>
+  </div>
+
+{%endblock content%}
+{%block javascript%}
+<!-- Page level plugins -->
+<!-- <script src="{{ url_for('static',filename='vendor/jquery-ui/jquery-ui.min.js') }}"></script> -->
+<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+  <!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+<!-- Page level custom scripts -->
+<!-- <script>
+  $( function() {
+    $( "#dob" ).datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+  } );
+  </script> -->
+</head>
+<body>
+{%endblock javascript%}

@@ -1,0 +1,91 @@
+﻿Feature,Feature Number,Chinese question,English question,Category,Group,Subgroup,Translation
+畏热喜凉,F34,,,P,Skin and mucosa,Heat/Cold/Sweating,aversion to heat 
+五心烦热,F35,,,P,Skin and mucosa,Heat/Cold/Sweating,"vexing heat in the chest, palms and soles"
+四肢不温,F19,,,P,Skin and mucosa,Heat/Cold/Sweating,cold extremities
+汗多 ,F40,,Do you feel sweating a lot?,P,Skin and mucosa,Heat/Cold/Sweating,profuse sweating
+自汗,F36,,,P,Skin and mucosa,Heat/Cold/Sweating,spontaneous sweating 
+盗汗,F39,,,P,Skin and mucosa,Heat/Cold/Sweating,night sweating 
+瘀点或瘀斑,F46,,,A,Skin and mucosa,Skin,subcutaneous hemorrhage
+甲错,F47,,,A,Skin and mucosa,Skin,"encrusted skin(dried, roughened and scaling skin)"
+红,F48,,,A,Skin and mucosa,Face,flushing
+苍白,F49,,,A,Skin and mucosa,Face,Pale
+瘀斑,F50,,,A,Skin and mucosa,Face,Facial ecchymosis
+紫暗,F53,,,A,Skin and mucosa,Face,
+晦暗,F54,,,A,Skin and mucosa,Face,
+紫暗,F51,,,A,Skin and mucosa,,
+体型肥胖,F45,,,A,Trunk and leg,,fat/overweight
+酸痛,F16,,,P,Trunk and leg,,soreness and pain of waist and knees
+酸冷,F20,,,P,Trunk and leg,,soreness and coldness of waist and knees
+困重,F17,,,P,Trunk and leg,,body heaviness
+麻木疼痛,F21,,,P,Trunk and leg,,numbness and pain of body（especially  limbs）
+偏身麻木,F18,,,P,Trunk and leg,,numbness of hemi-lateral body
+乏力,F22,,fatigue,P,Mood or metal condition,,lack of strength
+少气懒言,F24,,,P,Mood or metal condition,,reluctant to speak/talk
+精神疲倦,F25,,,P,Mood or metal condition,,lassitude of spirit （lack of mental vigor）
+心烦,F28,,"a feeling of restlessness, heat, and oppression in the
+region of the heart",P,Mood or metal condition,,upset?distracted?vexation?
+急躁易怒,F37,,,P,Mood or metal condition,,Irritable
+抑郁烦闷,F38,,,P,Mood or metal condition,,Depression
+善太息,F41,,,P,Mood or metal condition,,"sighing（taking deep breaths with long, audible expiration）"
+失眠多梦,F42,,,P,Mood or metal condition,,Insomnia and profuse dreaming（a condition in which sleep is frequently disturbed by dreams）
+恶梦纷纭（做噩梦）,F43,,,P,Mood or metal condition,,Nightmares
+易惊醒,F44,,,P,Mood or metal condition,,Easy to wake up？？
+头痛,F1 ,,,P,,,headache
+头晕,F1 F2 F3,,,P,,,dizziness
+头沉,F3,,,P,,,head heaviness
+耳鸣耳聋,F4,,,P,,,Tinnitus and deafness
+目眩,F2,,,P,,,
+目睛干涩,F5,,,P,,,Dryness of eye/dry eye
+目赤,F52,,,P,,,red eye/pink eye?
+口干,F26 F32,,,P,,,dry mouth
+口黏腻,F26 F31,,,P,,,sticky slimy sensation in the mouth
+口苦,F27 F28 F29,,,P,,,"bitter taste in the
+mouth"
+口臭,F33,,,P,,,fetid mouth odor
+咽干,F29 F32,,,P,,,dry thoat
+喘促气短,F23,,,P,,,喘促panting（rapid and difficult breathing）气短shortness of breath 
+痰多,F30,,,P,,,phlegm
+心痛彻背(范围),F6,,,P,,,severe chest pain with back pain
+胸痛如绞（性质）、时作时止（发作性）、寒冷加重（加重因素）,F8,,"or gripping pain(an acute pain in the chest or abdomen, often caused
+by spasm, obstruction or twisting, also called spasm
+and pain)",P,,,"angina（sensation of chest pain, pressure, or squeezing）,paroxysmal(a sudden recurrence or intensification of symptoms),getting worse when it's cold"
+心悸,F9,,,P,,,Palpitation
+满闷,F7,,,P,,,congestion
+胀满,F10,,,P,,,distension
+痛,F10,,,P,,,pain
+胀满,F10 F11 F14,,,P,abdomen,middle or upper region ,distension
+痛,F10,,,P,abdomen,middle or upper region ,pain
+胀满,F10,,,P,abdomen,lower region,distension
+痛,F10,,,P,abdomen,lower region,pain
+恶心,F12,,,P,abdomen,digestion,nausea
+呕吐痰涎,F13,,,P,abdomen,digestion,vomitus like sputum and salivary
+食少,F14 F15,,,P,abdomen,digestion,decreased intake（eat less）
+纳呆,F14,,,P,abdomen,digestion,torpid intake (loss of appetite)
+大便干,F33 F60 F61,,,P,abdomen,excrement,dry stool
+便溏（大便不成形 ）,F15,,,P,abdomen,excrement,"sloppy stool (soft, unformed stool)"
+大便不爽,F59,,瀉下不爽ungratifying diarrhea (diarrhea that leaves the patient with a feeling that the bowels have not been satisfactorily emptied),P,abdomen,excrement,Sticky stool
+尿黄,F61 F62,, 尿黄 和 黄赤是否相同？？？,P,abdomen,urine,reddish yellow urine
+浑浊,F63,,,P,abdomen,urine,turbid urine
+白带量多,F55,,,P,,gynecology,increasing in the amount of leukorrhea discharge
+月经量少或停经,F56,,,P,,gynecology,hypomenorrhea or menostasia
+遗精,F57,,,P,,andrology,Nocturnal emission
+早泄,F58,,,P,,andrology,Premature ejaculation
+舌淡苔白,F64,,tongue color 舌色,A,Tongue and Pulse,Tongue,pale tongue 淡白舌 white fur 白苔
+舌红少苔,F65,,tongue body 舌體; 舌質,A,Tongue and Pulse,Tongue,red tongue 紅舌 little tongue coating 少苔
+舌红,F66,,tongue fur 舌苔,A,Tongue and Pulse,Tongue,red tongue 紅舌
+苔黄腻,F67,,,A,Tongue and Pulse,Tongue,yellow fur 黃苔 slimy fur 膩苔
+舌苔滑腻,F68,,,A,Tongue and Pulse,Tongue,slimy fur 膩苔 slippery fur 滑苔
+舌胖大边有齿痕,F69,,,A,Tongue and Pulse,Tongue,enlarged tongue 胖大舌teeth-marked tongue 齒痕舌
+舌紫暗有瘀斑,F70,,,A,Tongue and Pulse,Tongue,purple tongue 紫舌 bluish purple tongue 靑紫舌 petechia
+苔黄,F71,,,A,Tongue and Pulse,Tongue,yellow fur 黃苔
+舌下络脉青紫,F72,,,A,Tongue and Pulse,Tongue,"sublingual collateral
+vessels/vein under the tongue 舌下脉络"
+脉沉细或沉紧,F73,,,A,Tongue and Pulse,Pulse,sunken pulse 沈脈 fine pulse 細脈 tight pulse 緊脈
+脉滑数,F74,,,A,Tongue and Pulse,Pulse,rapid pulse 數脈 slippery pulse 滑脈
+脉细或弱,F75,,,A,Tongue and Pulse,Pulse,fine pulse 細脈 weak pulse 弱脈
+脉涩、结、代,F76,,,A,Tongue and Pulse,Pulse,rough pulse 澁脈 intermittent pulse 代脈 bound pulse 結脈
+脉细或细数,F77,,,A,Tongue and Pulse,Pulse,rapid pulse 數脈fine pulse 細脈
+脉弦,F78,,,A,Tongue and Pulse,Pulse,string-like pulse 弦脈
+脉弦数,F79,,,A,Tongue and Pulse,Pulse,rapid pulse 數脈 string-like pulse 弦脈
+脉弦滑,F80,,,A,Tongue and Pulse,Pulse,slippery pulse 滑脈 string-like pulse 弦脈
+脉滑,F81,,,A,Tongue and Pulse,Pulse,slippery pulse 滑脈

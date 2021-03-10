@@ -22,7 +22,7 @@
   </div>
   {% endfor%} {% endif %} {% endwith%}
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Search Patients</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Patients Diagnosis</h6>
   </div>
   <div class="card-body">
     <div class="table-responsive">
@@ -38,7 +38,7 @@
             <th>DOB</th>
             <th>Gender</th>
             <th>Phone Number</th>
-            <th>Details</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -48,20 +48,13 @@
             data-id="{{patient.id}}"
           >
             <!-- <td><span style="display: block;">{{patient.id}}</span></td> -->
-            <td>
-              {{patient.first_name}} {{patient.last_name}} {% if patient.status
-              == 1 %}
-              <span class="badge badge-primary ml-2">Tested</span>
-              {% endif %} {% if patient.status == 2 %}
-              <span class="badge badge-danger ml-2">Examined</span>
-              {% endif %}
-            </td>
+            <td>{{patient.first_name}} {{patient.last_name}}</td>
             <td>{{patient.birthday.strftime('%m/%d/%Y')}}</td>
             <td>{{patient.gender}}</td>
             <td>{{patient.phone_number}}</td>
             <td>
-              <a href="{{url_for('patient_info', patient_id=patient.id)}}"
-                >Select</a
+              <a href="{{url_for('diagnosis', patient_id=patient.id)}}"
+                >Diagnose</a
               >
             </td>
           </tr>
@@ -122,9 +115,10 @@
     $(this).find('.modal-body #gender').text(gender);
   });
 </script>
-<script>
-  var add_btn =
-    '<a href="{{url_for("add_patient")}}" class="btn btn-success btn-icon-split mb-3"><span class="icon text-white-50"><i class="fas fa-user-plus"></i></span><span class="text">Add Patients</span></a>';
-  $('#dataTable_wrapper').find('div:first > div:first').append(add_btn);
-</script>
+
+<!-- Add patient button -->
+<!-- <script>
+  var add_btn='<a href="{{url_for("add_patient")}}" class="btn btn-success btn-icon-split mb-3"><span class="icon text-white-50"><i class="fas fa-user-plus"></i></span><span class="text">Add Patients</span></a>'
+  $("#dataTable_wrapper").find('div:first > div:first').append(add_btn);
+</script> -->
 {%endblock javascript%}

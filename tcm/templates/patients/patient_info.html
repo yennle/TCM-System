@@ -7,7 +7,7 @@
 
 {%block content%}
 <div class="row mb-4">
-    <a href="{{url_for('search_patients')}}" class="btn btn-light btn-icon-split">
+    <a href="{{url_for('search_patient')}}" class="btn btn-light btn-icon-split">
         <span class="icon text-gray-600">
           <i class="fas fa-arrow-left"></i>
         </span>
@@ -22,13 +22,13 @@
          <p class="card-text text-gray-800">Name: <strong><span id='name' class="text-primary">{{patient.first_name}} {{patient.last_name}}</span></strong></p> 
          <p class="card-text text-gray-800">DOB: <strong><span id='dob' class="text-primary">{{patient.birthday.strftime('%b %d, %Y')}}</span></strong></p> 
          <p class="card-text text-gray-800">Gender: <strong><span id='gender'class="text-primary">{% if patient.gender == 'F' %}Female {%else%} Male {%endif%}</span></strong></p> 
-         <a href="#" class="btn btn-success btn-icon-split">
+         <a href="{{url_for('test_patient', patient=patient.id)}}" class="btn btn-success btn-icon-split mb-2 mx-auo">
             <span class="icon text-white-50">
                 <i class="fas fa-stream"></i>
             </span>
             <span class="text">Take symptoms test</span>
-          </a>
-         
+            </a>
+            
          <!-- <p class="card-text text-gray-800">Last Visited: <strong><span id='visit'class="text-primary"></span></strong></p> -->
        </div>
      </div>
@@ -180,7 +180,7 @@
              </div>
              <div class="tab-pane fade m-3" id="nav-test" role="tabpanel" aria-labelledby="nav-test-tab">
                 
-                <h3>Test History</h3>
+               test test
              </div>
              <div class="tab-pane fade m-5" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                

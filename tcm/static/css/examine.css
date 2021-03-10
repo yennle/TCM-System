@@ -1,0 +1,9 @@
+.wizard > .steps > ul > li {
+  width: fit-content;
+}
+.wizard > .content {
+  text-align: center;
+}
+.patient-info {
+  margin-top: 200px !important;
+}

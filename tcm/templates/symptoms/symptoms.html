@@ -1,0 +1,116 @@
+{%extends "home.html" %}
+{%block css%}
+<!-- Custom styles for this page -->
+<link href="{{ url_for('static',filename='vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+<link href="{{ url_for('static',filename='vendor/datatables/select.dataTables.min.css') }}" rel="stylesheet">
+{%endblock css%}
+
+{%block content%}
+<!-- DataTales Patients -->
+
+<div class="card shadow mb-4">
+  {% with messages =get_flashed_messages(with_categories=true)%}
+{% if messages %}
+    {% for category, message in messages%}
+    <div id="message"class=" animated--grow-in text-center text-lg text-{{category}} ">
+    <span class="animated--grow-in" >{{message}}</span>
+    </div>
+    {% endfor%}
+
+
+{% endif %}
+{% endwith%}
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Symptom Question Manager</h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered cell-border" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+                <th>Feature Number</th>
+                <th>Feature</th>
+                <th>Group</th>
+                <th>Subgroup</th>
+                <th colspan="2">Tools</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for symptom in symptoms %}
+            <tr style="background: {%if symptom.category =='P'%}#FBE4D5{%else%}#DEEAF6{%endif%};" data-id="{{symptom.id}}">
+                <td>{{symptom.feature_number}}</td>
+                <td>{{symptom.feature}}</td>
+                <td>{{symptom.group.group_name}}</td>
+                <td>{{symptom.subgroup.subgroup_name}}</td>
+                <td> <a href="#" class="btn btn-warning btn-sm">
+                    <i class="far fa-edit"></i>
+                    Update
+                  </a>
+                </td>
+                <td>
+                  <a href="#" class="btn btn-danger btn-sm">
+                    <i class="far fa-trash-alt"></i>
+                  </a>
+                </td>
+            </tr>
+            {%endfor%}
+        </tbody>
+        </table>
+      </div>
+    </div>
+</div>
+
+
+
+{%endblock content%}
+{%block javascript%}
+<!-- Page level plugins -->
+<script src="{{ url_for('static',filename='vendor/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ url_for('static',filename='vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ url_for('static',filename='vendor/datatables/dataTables.select.min.js') }}"></script>
+
+<!-- Page level custom scripts -->
+<!-- <script type="text/javascript" src="{{ url_for('static',filename='js/patients/search_patients.js') }}"></script> --> -->
+<!-- <script type="text/javascript" src="{{ url_for('static',filename='js/test2.js') }}"></script> --> -->
+<!-- <script type="text/javascript" src="{{ url_for('static',filename='js/demo/datatables-demo.js') }}"></script> -->
+<script>
+  var table= $('#dataTable').DataTable({
+    lengthChange:false,
+    
+});
+var name,dob, phone,gender
+$('#select_patient').click(function () {
+    var row = table.rows({selected :true}).data();
+    var selected = table.rows({selected:true})
+    
+    patient_id=$(selected).attr("data-id")
+    
+    alert(patient_id)
+    //alert(row.attr("data-url"))
+    $.ajax({
+      type: "get",
+      url: $(selected).attr("data-url"),
+      dataType: "json",
+      beforeSend:function(){
+          $('#PatientModal').modal('show')
+          //$('#patient_'+patient_id).modal('show')
+      },
+      success: function (response) {
+          alert('success')
+      }
+  });
+   
+});
+$('#PatientModal').on('show.bs.modal',function(event){
+        $(this).find('.modal-body #name').text(name);
+        $(this).find('.modal-body #dob').text(dob);
+        $(this).find('.modal-body #phone').text(phone);
+        $(this).find('.modal-body #gender').text(gender);
+})
+</script>
+<script>
+  var add_btn='<a href="{{url_for("add_symptom")}}" class="btn btn-success btn-icon-split mb-3"><span class="icon text-white-50"><i class="fas fa-user-plus"></i></span><span class="text">Add Symptom</span></a>'
+  $("#dataTable_wrapper").find('div:first > div:first').append(add_btn);
+</script>
+{%endblock javascript%}
+  

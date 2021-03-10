@@ -1,7 +1,6 @@
 {%extends "layout.html" %}
 {%block css%}
 <!-- Custom styles for this page -->
-
 {%endblock css%}
 
 {%block main%}
@@ -27,15 +26,15 @@
         </div>
         <!-- Nav Item - Patient -->
         <li class="nav-item active">
-            <a class="nav-link" href="{{ url_for ('search_patients')}}">
-                <i class="fas fa-users"></i>
+            <a class="nav-link" href="{{ url_for ('search_patient')}}">
+                <i class="fas fa-search"></i>
                 <span>Search Patients</span></a>
         </li>
-        <!-- Nav Item - Test -->
+        <!-- Nav Item - Add patient -->
         <li class="nav-item">
-            <a class="nav-link" href="{{ url_for ('test_patients')}}">
-                <i class="far fa-comment-dots"></i>
-                <span>Symptoms Test</span></a>
+            <a class="nav-link" href="{{ url_for ('add_patient')}}">
+                <i class="fas fa-user-plus"></i>
+                <span>Add Patient</span></a>
         </li>
 
         <!-- Divider -->
@@ -48,9 +47,8 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-cog"></i>
+            <a class="nav-link" href="{{ url_for ('examine_patient')}}">
+                <i class="fas fa-stethoscope"></i>
                 <span>Examine Patients</span>
             </a>
         </li>
@@ -63,22 +61,13 @@
             Senior Doctor
         </div>
 
-        <!-- Nav Item - Confirm Symptoms -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                aria-expanded="true" aria-controls="collapsePages">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Confirm Symptoms</span>
-            </a>
-        </li>
-
         <!-- Nav Item - Diagnosis -->
         <li class="nav-item">
-            <a class="nav-link" href="/">
-                <i class="fas fa-fw fa-chart-area"></i>
+            <a class="nav-link" href="{{ url_for ('diagnose_patient')}}">
+                <i class="fas fa-user-md"></i>
                 <span>Diagnosis</span></a>
         </li>
-
+        
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
